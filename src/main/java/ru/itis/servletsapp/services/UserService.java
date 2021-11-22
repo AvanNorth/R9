@@ -11,4 +11,8 @@ public interface UserService {
     User getUserById(Long id);
 
     List<User> getUserFriends(Long id);
+
+    void addUserFriend(Long id, Long friendId);
+
+    void deleteUserFriend(Long id, Long friendId);
 }

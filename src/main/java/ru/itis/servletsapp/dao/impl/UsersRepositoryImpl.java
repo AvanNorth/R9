@@ -29,6 +29,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     private final static String SQL_SELECT_ALL = "select * from users";
     private final static String SQL_SELECT_FRIENDS = "select u.* from user_friends uf join users u on (uf.friend_id = u.id) where uf.user_id = ?";
     private final static String SQL_INSERT_FRIENDS = "insert into user_friends(user_id, friend_id) values(?,?)";
+    private final static String SQL_DELETE_FRIENDS = "delete from user_friends where user_id = ? AND friend_id = ?";
 
     private final RowMapper<User> rowMapper = (row, rowNumber) ->
             User.builder()
@@ -72,7 +73,13 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public void setFriend(Long id, Long friendId) {
+        jdbcTemplate.update(SQL_INSERT_FRIENDS,id,friendId);
+        }
 
+
+    @Override
+    public void deleteFriend(Long id, Long friendId) {
+        jdbcTemplate.update(SQL_DELETE_FRIENDS,id,friendId);
     }
 
     @Override

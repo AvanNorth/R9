@@ -27,6 +27,7 @@ public class FindFriendServlet extends HttpServlet {
         UserDto userDto = (UserDto) req.getSession(true).getAttribute("user");
 
         req.setAttribute("users", userService.getAllUsers());
+        req.setAttribute("friends",userService.getUserFriends(userDto.getId()));
         req.setAttribute("sessionUser", userDto);
         req.getRequestDispatcher("find_friends.ftl").forward(req,resp);
     }

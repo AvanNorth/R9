@@ -15,7 +15,7 @@
     <link href="/resources/css/profile.css" rel="stylesheet">
 
     <script src="/resources/js/jquery.min.js"></script>
-    <script src="/resources/js/profile.js"></script>
+    <script src="/resources/js/friends.js"></script>
 </head>
 <body>
 <div class="container">
@@ -27,7 +27,7 @@
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="service-list">
                     <#if friends??>
                     <#list friends as friend>
-                        <div class="col" id = "${friend.id}" >
+                        <div class="col" id = "card${friend.id}" >
                             <div class="card shadow-sm">
                                 <div class="card-body">
                                     <div class="card-header text-center">
@@ -40,11 +40,12 @@
                                     </#if>
                                     <p class="card-text">email: ${friend.email}</p>
                                         <p>age: ${friend.age}</p>
-                                    <a type="button" class="btn btn-secondary" style="color: red; float: right">удалить</a>
+                                    <button id = "delBtn${friend.id}" type="button" class="btn btn-secondary" style="color: red; float: right " onclick="deleteFriend(${friend.id})">удалить</button>
+                                   <p id = "delTxt${friend.id}" style="color: red; float: right" hidden>Удален</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a href="/profile?userId=${friend.id}" type="button" class="btn btn-secondary" style="margin-right: 3%">Открыть профиль</a>
-                                            <a  type="button" class="btn btn-secondary" data-bs-toggle="modal">Написать сообщение</a>
+                                            <a href="/im?nSel=${friend.id}" type="button" class="btn btn-secondary" data-bs-toggle="modal">Написать сообщение</a>
                                         </div>
                                     </div>
                                 </div>

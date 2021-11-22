@@ -25,7 +25,7 @@
     <div class="center-content">
         <div class="container">
             <div class="title">Диалог</div>
-            <textarea id = "dialogIdArea" style="visibility: hidden">${dialog.id}</textarea>
+            <textarea id="dialogIdArea" style="visibility: hidden">${dialog.id}</textarea>
             <div id="profile" class="white-container" style="display: flex;">
                 <#if interloc.avatarId??>
                     <img class="user-avatar" style="width: 55px; height: 55px; margin: 2% 2% 2% 2%;" alt="IMAGE"
@@ -54,20 +54,24 @@
             <div class="divider"></div>
 
             <div id="msg-list">
-                <#list messages as msg>
-                    <div id="msg${msg.id}"
-                            <#if msg.author.id == user.id>
-                                style="text-align: end;"
-                            <#else>
-                                style="text-align: start;"
-                            </#if>
-                    >
-                        <div class="light_blue text">${msg.createdAt?string("dd MMMM yyyy 'г.,' HH:mm")}</div>
-                        <div class="text">${msg.author.firstName ! " NO NAME"}</div>
-                        <div class="text">${msg.content}</div>
+                <#if messages??>
+                    <#list messages as msg>
+                        <div id="msg${msg.id}"
+                                <#if msg.author.id == user.id>
+                                    style="text-align: end;"
+                                <#else>
+                                    style="text-align: start;"
+                                </#if>
+                        >
+                            <div class="light_blue text">${msg.createdAt?string("dd MMMM yyyy 'г.,' HH:mm")}</div>
+                            <div class="text">${msg.author.firstName ! " NO NAME"}</div>
+                            <div class="text">${msg.content}</div>
 
-                    </div>
-                </#list>
+                        </div>
+                    </#list>
+                <#else>
+                    <h6 class = "text-center"> Сообщений пока нет </h6>
+                </#if>
             </div>
         </div>
     </div>

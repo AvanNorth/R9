@@ -27,4 +27,17 @@ public class FriendServlet extends HttpServlet {
         req.setAttribute("friends", userService.getUserFriends(userDto.getId()));
         req.getRequestDispatcher("friends.ftl").forward(req,resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserDto userDto = (UserDto) req.getSession(true).getAttribute("user");
+
+       String newFriendId = req.getParameter("addId");
+       String delFriendId = req.getParameter("delId");
+       if (newFriendId != null){
+           userService.addUserFriend(userDto.getId(), Long.parseLong(newFriendId));
+       }else if(delFriendId != null){
+           userService.deleteUserFriend(userDto.getId(), Long.parseLong(delFriendId));
+       }else resp.sendError(400);
+    }
 }

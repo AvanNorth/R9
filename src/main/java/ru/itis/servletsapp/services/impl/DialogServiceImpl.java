@@ -30,6 +30,11 @@ public class DialogServiceImpl implements DialogService {
     }
 
     @Override
+    public Dialog createDialog(Dialog dialog) {
+        return dialogRepository.save(dialog);
+    }
+
+    @Override
     public Dialog getDialogById(Long dialogId) {
        Optional<Dialog> dOptional= dialogRepository.findById(dialogId);
         return dOptional.orElseThrow(() -> new NotFoundException("Dialog not found"));

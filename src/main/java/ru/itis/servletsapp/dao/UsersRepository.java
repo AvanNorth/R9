@@ -11,6 +11,7 @@ public interface UsersRepository extends CrudRepository<User, Long> {
     Optional<User> findByToken(String token);
     List<User> findFriends(Long id);
     void setFriend(Long id, Long friendId);
+    void deleteFriend(Long id, Long friendId);
     void updateAvatarForUser(Long userId, Long fileId);
     Optional<String> getTokenByUserId(Long userId);
     void createTokenForUser(Long userId, String token);

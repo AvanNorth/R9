@@ -11,6 +11,7 @@ public interface DialogService {
     List<User> getUsers(Long dialogId);
     List<Dialog> getDialogs();
 
+    Dialog createDialog(Dialog dialog);
     Dialog getDialogById(Long dialogId);
     void updateTime(Long dialogId, Timestamp time);
 }
