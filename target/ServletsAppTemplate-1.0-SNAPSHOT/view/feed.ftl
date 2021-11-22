@@ -25,9 +25,10 @@
         <div class="container emp-profile">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="service-list">
+
                     <#if posts??>
                         <#list posts as post>
-                            <div class="col" id = "card${post.id}" >
+                            <div class="col" id="card${post.id}">
                                 <div class="card shadow-sm">
                                     <div class="card-body">
                                         <div class="card-header text-center">
@@ -38,7 +39,7 @@
                                         <#else>
                                             <img class="user-avatar"  style="width: 70px; height: 70px; margin: 2% 2% 2% 2%;" alt="IMAGE" src="/no-avatar.png"/>
                                         </#if>
-                                        <strong>${post.createdAt?string("dd MMMM yyyy 'г.,' HH:mm")}</strong>
+                                        <p >${post.createdAt?string("dd MMMM yyyy 'г.,' HH:mm")}</p>
                                         <p class="card-text">${post.content}</p>
                                     </div>
                                 </div>
@@ -55,3 +56,5 @@
 </div>
 </body>
 </html>
+
+

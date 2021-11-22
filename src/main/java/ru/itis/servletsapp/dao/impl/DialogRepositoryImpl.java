@@ -23,10 +23,12 @@ public class DialogRepositoryImpl implements DialogRepository {
             "values (?, ?, ?)";
     private final static String SQL_UPDATE_TIME = "update dialogs set last_message = ? where id = ?";
     private final static String SQL_SELECT_BY_ID = "select * from dialogs where id = ?";
-    private final static String SQL_SELECT_ALL = "select * from dialogs order by last_message";
+    private final static String SQL_SELECT_ALL = "select * from dialogs order by last_message desc";
+    private final static String SQL_SELECT_BY_USER_ID = "select * from dialogs where user_1 = ? OR user_2 = ? order by last_message desc";
     private final static String SQL_SELECT_USER1 = "select u.* from dialogs d join users u on (d.user_1 = u.id) where d.id = ?";
     //private final static String SQL_SELECT_USER = "select * from dialogs d join users u1 on (d.user_1 = u1.id) join users u2 on (d.user_2 = u2.id) where d.id = 1";
     private final static String SQL_SELECT_USER2 = "select u.* from dialogs d join users u on (d.user_2 = u.id) where d.id = ?";
+    private final static String SQL_SELECT_BY_USER = "select * from dialogs where dialogs.user_1 = ? AND dialogs.user_2 = ? OR dialogs.user_1 = ? AND dialogs.user_2 = ?";
 
     private final RowMapper<Dialog> rowMapper = (row, rowNumber) -> Dialog.builder()
             .id(row.getLong("id"))
@@ -62,7 +64,7 @@ public class DialogRepositoryImpl implements DialogRepository {
 
     @Override
     public List<Dialog> findAll() {
-        return jdbcTemplate.query(SQL_SELECT_ALL,rowMapper);
+        return jdbcTemplate.query(SQL_SELECT_ALL, rowMapper);
     }
 
     @Override
@@ -95,8 +97,22 @@ public class DialogRepositoryImpl implements DialogRepository {
     @Override
     public List<User> findUsers(Long dialogId) {
         List<User> list = new LinkedList<>();
-        list.add(jdbcTemplate.queryForObject(SQL_SELECT_USER1,userRowMapper,dialogId));
-        list.add(jdbcTemplate.queryForObject(SQL_SELECT_USER2,userRowMapper,dialogId));
+        list.add(jdbcTemplate.queryForObject(SQL_SELECT_USER1, userRowMapper, dialogId));
+        list.add(jdbcTemplate.queryForObject(SQL_SELECT_USER2, userRowMapper, dialogId));
         return list;
+    }
+
+    @Override
+    public Optional<Dialog> alreadyExist(Long userId1, Long userId2) {
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(SQL_SELECT_BY_USER, rowMapper, userId1, userId2, userId2, userId1));
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public List<Dialog> findByUserId(Long userId) {
+        return jdbcTemplate.query(SQL_SELECT_BY_USER_ID, rowMapper,userId,userId);
     }
 }

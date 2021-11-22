@@ -6,7 +6,7 @@ $(document).ready(function () {
     let form = $("#add-post-form")
     let postsList = $("#post-list")
     form.on('submit', function () {
-        let content = form.find("#content").val();
+        let content = form.find("#content").val()
         if (content === '') {
             return false
         }
@@ -19,11 +19,11 @@ $(document).ready(function () {
             },
             success: function (data) {
                 let postDto = JSON.parse(data)
-                form.find("#content").val("")
+                    form.find("#content").val("")
                 let postTag = $("<div></div>")
                 let options = { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric" }
                 postTag.append("<div class=\"light_blue text\">" + new Date(postDto.createdAt).toLocaleString('ru-RU', options) + "</div>")
-                postTag.append("<div class=\"text\">Автор: " + postDto.author.firstName + "</div>")
+                postTag.append("<div class=\"text\">" + postDto.author.firstName + "</div>")
                 postTag.append("<div class=\"text\">" + postDto.content + "</div>")
                 postTag.append("<div class=\"divider\"></div>")
                 postTag.hide()

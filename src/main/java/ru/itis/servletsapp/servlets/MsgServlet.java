@@ -2,6 +2,7 @@ package ru.itis.servletsapp.servlets;
 
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 import org.apache.logging.log4j.message.Message;
+import ru.itis.servletsapp.dto.MsgDto;
 import ru.itis.servletsapp.dto.UserDto;
 import ru.itis.servletsapp.model.Dialog;
 import ru.itis.servletsapp.model.User;
@@ -44,27 +45,37 @@ public class MsgServlet extends HttpServlet {
             Dialog dialog = dialogService.getDialogById(dialogIdL);
             List<User> users = dialogService.getUsers(dialogIdL);
             if ((users.get(0).getId().equals(userDto.getId()) || users.get(1).getId().equals(userDto.getId())) && dialog != null) {
-                req.setAttribute("dialog", dialog);
-                req.setAttribute("user", userDto);
-                req.setAttribute("interloc", users.get(users.size() - users.indexOf(User.from(userDto)) - 1));
-                req.setAttribute("messages", msgsService.getByDialogId(dialogIdL));
-                req.getRequestDispatcher("messages.ftl").forward(req, resp);
+                redirToExistDialog(req, resp, dialog, userDto, (users.get(users.size() - users.indexOf(User.from(userDto)) - 1)), msgsService.getByDialogId(dialogIdL));
             }
         } else if (createDialog != null && userDto != null) {
             Long interlocId = Long.parseLong(createDialog);
-            Dialog newDialog = Dialog.builder()
-                    .user1(userDto.getId())
-                    .user2(interlocId)
-                    .lastMsg(new Timestamp(System.currentTimeMillis()))
-                    .build();
-            newDialog = dialogService.createDialog(newDialog);
-            req.setAttribute("dialog", dialogService.createDialog(newDialog));
-            req.setAttribute("user",userDto);
-            req.setAttribute("interloc",userService.getUserById(interlocId));
-            resp.sendRedirect("/im?sel="+newDialog.getId());
+            Optional<Dialog> optionalDialog = dialogService.alreadyExist(userDto.getId(), interlocId);
+            if (optionalDialog.isPresent()) {
+                Dialog dialog = optionalDialog.get();
+                redirToExistDialog(req, resp, dialog, userDto, userService.getUserById(interlocId), msgsService.getByDialogId(dialog.getId()));
+            }else {
+                Dialog newDialog = Dialog.builder()
+                        .user1(userDto.getId())
+                        .user2(interlocId)
+                        .lastMsg(new Timestamp(System.currentTimeMillis()))
+                        .build();
+                newDialog = dialogService.createDialog(newDialog);
+                req.setAttribute("dialog", newDialog);
+                req.setAttribute("user", userDto);
+                req.setAttribute("interloc", userService.getUserById(interlocId));
+                resp.sendRedirect("/im?sel=" + newDialog.getId());
+            }
         } else {
-            req.setAttribute("dialogs", dialogService.getDialogs());
+            req.setAttribute("dialogs", dialogService.getDialogs(userDto.getId()));
             req.getRequestDispatcher("dialogs.ftl").forward(req, resp);
         }
+    }
+
+    private void redirToExistDialog(HttpServletRequest req, HttpServletResponse resp, Dialog dialog, UserDto userDto, User interloc, List<MsgDto> messages) throws ServletException, IOException {
+        req.setAttribute("dialog", dialog);
+        req.setAttribute("user", userDto);
+        req.setAttribute("interloc", interloc);
+        req.setAttribute("messages", messages);
+        req.getRequestDispatcher("messages.ftl").forward(req, resp);
     }
 }

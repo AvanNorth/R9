@@ -25,8 +25,13 @@ public class DialogServiceImpl implements DialogService {
     }
 
     @Override
-    public List<Dialog> getDialogs() {
-        return dialogRepository.findAll();
+    public List<Dialog> getDialogs(Long userId) {
+        return dialogRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Optional<Dialog> alreadyExist(Long userId1, Long userId2) {
+        return dialogRepository.alreadyExist(userId1,userId2);
     }
 
     @Override
