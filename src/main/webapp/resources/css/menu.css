@@ -18,7 +18,7 @@
     position: relative;
     display: block;
     color: white;
-    background-color: #139E95;
+    background-color:  #ca69e3;
     height: 40px;
     margin-bottom: 10px;
     border-radius: 50px;
@@ -31,8 +31,8 @@
 
 .nav a:hover{
     color: #fff;
-    background-color: #449d44;
-    border-color: #398439;
+    background-color: #ca42e3;
+    border-color: #ffffff;
 }
 
 .navbar-collapse {

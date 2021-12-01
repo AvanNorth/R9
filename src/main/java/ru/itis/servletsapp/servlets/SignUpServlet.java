@@ -40,6 +40,8 @@ public class SignUpServlet extends HttpServlet {
                     .firstName(request.getParameter("firstName"))
                     .lastName(request.getParameter("lastName"))
                     .email(request.getParameter("email"))
+                    .gender(request.getParameter("gender"))
+                    .description(request.getParameter("description"))
                     .password(request.getParameter("password"))
                     .age(Integer.valueOf(request.getParameter("age")))
                     .build();

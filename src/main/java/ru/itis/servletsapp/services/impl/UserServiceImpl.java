@@ -1,9 +1,8 @@
 package ru.itis.servletsapp.services.impl;
 
-import ru.itis.servletsapp.dao.PostsRepository;
 import ru.itis.servletsapp.dao.UsersRepository;
-import ru.itis.servletsapp.dto.UserDto;
 import ru.itis.servletsapp.exceptions.NotFoundException;
+//import ru.itis.servletsapp.sex;
 import ru.itis.servletsapp.model.User;
 import ru.itis.servletsapp.services.UserService;
 
@@ -31,17 +30,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserFriends(Long id) {
-        return usersRepository.findFriends(id);
+    public boolean isInMatch(Long userId, Long matchId) {
+        List<Long> matches = usersRepository.findMatchesId(userId);
+
+        return matches.contains(matchId);
     }
 
     @Override
-    public void addUserFriend(Long id, Long friendId) {
-        usersRepository.setFriend(id,friendId);
+    public void setDislike(Long userId, Long matchId) {
+        setInteracted(userId, matchId);
     }
 
     @Override
-    public void deleteUserFriend(Long id, Long friendId) {
-        usersRepository.deleteFriend(id,friendId);
+    public User getPair(Long id) {
+        Optional<User> pair = usersRepository.getPair(id);
+        return pair.orElse(null);
+    }
+
+    @Override
+    public void setMatch(Long userId, Long matchId) {
+        setInteracted(userId, matchId);
+        usersRepository.setMatch(userId, matchId);
+    }
+
+    private void setInteracted(Long userId, Long matchId){
+        usersRepository.setInteractedWith(userId, matchId);
     }
 }

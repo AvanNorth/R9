@@ -24,7 +24,6 @@ public class CustomContextListener implements ServletContextListener {
         String DB_PASSWORD;
         String DB_URL;
         String DB_DRIVER;
-        String JWT_SECRET;
         String IMAGES_STORAGE_PATH;
         Properties properties = new Properties();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.properties");
@@ -57,8 +56,6 @@ public class CustomContextListener implements ServletContextListener {
         SignInService signInService = new SignInServiceImpl(usersRepository, passwordEncoder);
         Validator validator = new ValidatorImpl(usersRepository);
         SignUpService signUpService = new SignUpServiceImpl(usersRepository, passwordEncoder, validator);
-        PostsRepository postsRepository = new PostsRepositoryImpl(dataSource);
-        PostsService postsService = new PostsServiceImpl(postsRepository);
         UserService userService = new UserServiceImpl(usersRepository);
         MsgsService msgsService = new MsgsServiceImpl(msgRepository);
         DialogService dialogService = new DialogServiceImpl(dialogRepository);
@@ -68,7 +65,6 @@ public class CustomContextListener implements ServletContextListener {
         servletContext.setAttribute("userService", userService);
         servletContext.setAttribute("signInService", signInService);
         servletContext.setAttribute("signUpService", signUpService);
-        servletContext.setAttribute("postsService", postsService);
         servletContext.setAttribute("msgsService", msgsService);
         servletContext.setAttribute("dialogService",dialogService);
         servletContext.setAttribute("passwordEncoder", passwordEncoder);

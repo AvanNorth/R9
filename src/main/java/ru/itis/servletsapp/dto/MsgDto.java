@@ -3,7 +3,6 @@ package ru.itis.servletsapp.dto;
 
 import lombok.*;
 import ru.itis.servletsapp.model.Msg;
-import ru.itis.servletsapp.model.Post;
 
 import java.sql.Timestamp;
 

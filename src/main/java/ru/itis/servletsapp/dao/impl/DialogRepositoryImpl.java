@@ -26,7 +26,6 @@ public class DialogRepositoryImpl implements DialogRepository {
     private final static String SQL_SELECT_ALL = "select * from dialogs order by last_message desc";
     private final static String SQL_SELECT_BY_USER_ID = "select * from dialogs where user_1 = ? OR user_2 = ? order by last_message desc";
     private final static String SQL_SELECT_USER1 = "select u.* from dialogs d join users u on (d.user_1 = u.id) where d.id = ?";
-    //private final static String SQL_SELECT_USER = "select * from dialogs d join users u1 on (d.user_1 = u1.id) join users u2 on (d.user_2 = u2.id) where d.id = 1";
     private final static String SQL_SELECT_USER2 = "select u.* from dialogs d join users u on (d.user_2 = u.id) where d.id = ?";
     private final static String SQL_SELECT_BY_USER = "select * from dialogs where dialogs.user_1 = ? AND dialogs.user_2 = ? OR dialogs.user_1 = ? AND dialogs.user_2 = ?";
 
@@ -42,6 +41,9 @@ public class DialogRepositoryImpl implements DialogRepository {
                     .id(row.getLong("id"))
                     .firstName(row.getString("first_name"))
                     .lastName(row.getString("last_name"))
+                    .age(row.getInt("age"))
+                    .gender(row.getString("gender"))
+                    .description(row.getString("description"))
                     .email(row.getString("email"))
                     .avatarId(row.getLong("avatar_id") == 0 ? null : row.getLong("avatar_id"))
                     .build();

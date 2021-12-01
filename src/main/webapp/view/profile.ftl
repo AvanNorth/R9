@@ -1,5 +1,4 @@
 <#-- @ftlvariable name="user" type="ru.itis.servletsapp.dto.UserDto" -->
-<#-- @ftlvariable name="posts" type="java.util.List<ru.itis.servletsapp.dto.PostDto>" -->
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -13,8 +12,6 @@
     <link href="/resources/css/menu.css" rel="stylesheet">
     <link href="/resources/css/profile.css" rel="stylesheet">
 
-    <script src="/resources/js/jquery.min.js"></script>
-    <script src="/resources/js/profile.js"></script>
 </head>
 <body>
 
@@ -34,39 +31,20 @@
                 </#if>
 
                 <div class="user-info-text">
-                    <div class="user-info">${user.firstName}</div>
-                    <div class="user-info">${user.lastName}</div>
+                    <div class="user-info">Имя: ${user.firstName}</div>
+                    <div class="user-info">Фамилия: ${user.lastName}</div>
+                    <div class="user-info">${user.gender}</div>
                     <div class="user-info">${user.email}</div>
+                    <div class="user-info">Возраст: ${user.age}</div>
                 </div>
 
             </div>
 
-            <#if sessionUser?? && sessionUser.id == user.id>
-                <form id="add-post-form" action="/add-post" method="post">
-                    <label>
-                        Ваша запись:
-                        <textarea id="content" class="input_green" required name="content"></textarea>
-                    </label>
-                    <input class="button1" value="Отправить" type="submit">
-                </form>
-            </#if>
 
             <div class="divider"></div>
-
-            <div id="post-list">
-                <#list posts as post>
-                    <div id="post${post.id}">
-                        <button value="X" onclick="deletePost('post${post.id}', '${post.id}')"></button>
-                        <div class="light_blue text">${post.createdAt?string("dd MMMM yyyy 'г.,' HH:mm")}</div>
-                        <div class="text">Автор: ${post.author.lastName ! " NO NAME"} ${post.author.firstName ! " NO NAME"}</div>
-                        <div class="text">${post.content}</div>
-
-                        <#if post_index < posts?size - 1>
-                            <div class="divider"></div>
-                        </#if>
-                    </div>
-                </#list>
-                <div style="text-align: center">Всего <span id="postsCount">${posts?size}</span> записей</div>
+            <div class="user-info-text">
+                Описание:
+                <div class="user-info">${user.description}</div>
             </div>
         </div>
     </div>

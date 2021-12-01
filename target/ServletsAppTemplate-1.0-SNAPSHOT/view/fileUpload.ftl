@@ -1,20 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-
-</body>
-</html>
-
-
 <#-- @ftlvariable name="user" type="ru.itis.servletsapp.dto.UserDto" -->
-<#-- @ftlvariable name="posts" type="java.util.List<ru.itis.servletsapp.dto.PostDto>" -->
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -29,7 +13,7 @@
     <link href="/resources/css/profile.css" rel="stylesheet">
 
     <script src="/resources/js/jquery.min.js"></script>
-    <script src="/resources/js/profile.js"></script>
+    <script src="/resources/js/match.js"></script>
 </head>
 <body>
 

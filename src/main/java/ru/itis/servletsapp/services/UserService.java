@@ -10,9 +10,11 @@ public interface UserService {
 
     User getUserById(Long id);
 
-    List<User> getUserFriends(Long id);
+    boolean isInMatch(Long userId, Long matchId);
 
-    void addUserFriend(Long id, Long friendId);
+    void setDislike(Long userId, Long matchId);
 
-    void deleteUserFriend(Long id, Long friendId);
+    User getPair(Long id);
+
+    void setMatch(Long userId, Long matchId);
 }

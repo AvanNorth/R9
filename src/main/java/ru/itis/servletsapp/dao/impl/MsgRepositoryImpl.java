@@ -6,9 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import ru.itis.servletsapp.dao.MsgRepository;
-import ru.itis.servletsapp.dao.PostsRepository;
 import ru.itis.servletsapp.model.Msg;
-import ru.itis.servletsapp.model.Post;
 import ru.itis.servletsapp.model.User;
 
 import javax.sql.DataSource;

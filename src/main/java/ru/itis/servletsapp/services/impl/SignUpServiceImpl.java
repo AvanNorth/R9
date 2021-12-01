@@ -33,6 +33,8 @@ public class SignUpServiceImpl implements SignUpService {
                 .firstName(form.getFirstName())
                 .lastName(form.getLastName())
                 .age(form.getAge())
+                .description(form.getDescription())
+                .gender(form.getGender())
                 .hashPassword(passwordEncoder.encode(form.getPassword()))
                 .build();
         usersRepository.save(user);

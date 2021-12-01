@@ -13,6 +13,9 @@ public class UserDto {
     private String email;
     private String firstName;
     private String lastName;
+    private Integer age;
+    private String gender;
+    private String description;
     private Long avatarId;
     private String token;
 
@@ -20,6 +23,9 @@ public class UserDto {
         return UserDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())
+                .age(user.getAge())
+                .gender(user.getGender())
+                .description(user.getDescription())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .avatarId(user.getAvatarId())
