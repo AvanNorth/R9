@@ -1,14 +1,10 @@
 package ru.itis.servletsapp.services.impl;
 
 import ru.itis.servletsapp.dao.MsgRepository;
-import ru.itis.servletsapp.dao.PostsRepository;
 import ru.itis.servletsapp.dto.MsgDto;
-import ru.itis.servletsapp.dto.PostDto;
 import ru.itis.servletsapp.model.Msg;
-import ru.itis.servletsapp.model.Post;
 import ru.itis.servletsapp.model.User;
 import ru.itis.servletsapp.services.MsgsService;
-import ru.itis.servletsapp.services.PostsService;
 
 import java.util.List;
 import java.util.stream.Collectors;

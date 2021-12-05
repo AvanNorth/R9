@@ -13,4 +13,6 @@ public class UserForm {
     private String lastName;
     private String password;
     private Integer age;
+    private String gender;
+    private String description;
 }

@@ -1,5 +1,4 @@
 <#-- @ftlvariable name="user" type="ru.itis.servletsapp.dto.UserDto" -->
-<#-- @ftlvariable name="posts" type="java.util.List<ru.itis.servletsapp.dto.PostDto>" -->
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -15,7 +14,6 @@
     <link href="/resources/css/profile.css" rel="stylesheet">
 
     <script src="/resources/js/jquery.min.js"></script>
-    <script src="/resources/js/profile.js"></script>
 </head>
 <body>
 <div class="container">

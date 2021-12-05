@@ -40,29 +40,29 @@ public class MsgServlet extends HttpServlet {
         String createDialog = req.getParameter("nSel");
         UserDto userDto = (UserDto) req.getSession(true).getAttribute("user");
 
-        if (dialogId != null && userDto != null) {
+        if (dialogId != null) {
             Long dialogIdL = Long.parseLong(dialogId);
             Dialog dialog = dialogService.getDialogById(dialogIdL);
             List<User> users = dialogService.getUsers(dialogIdL);
             if ((users.get(0).getId().equals(userDto.getId()) || users.get(1).getId().equals(userDto.getId())) && dialog != null) {
-                redirToExistDialog(req, resp, dialog, userDto, (users.get(users.size() - users.indexOf(User.from(userDto)) - 1)), msgsService.getByDialogId(dialogIdL));
+                redirectToExistDialog(req, resp, dialog, userDto, (users.get(users.size() - users.indexOf(User.from(userDto)) - 1)), msgsService.getByDialogId(dialogIdL));
             }
-        } else if (createDialog != null && userDto != null) {
-            Long interlocId = Long.parseLong(createDialog);
-            Optional<Dialog> optionalDialog = dialogService.alreadyExist(userDto.getId(), interlocId);
+        } else if (createDialog != null) {
+            Long pairId = Long.parseLong(createDialog);
+            Optional<Dialog> optionalDialog = dialogService.alreadyExist(userDto.getId(), pairId);
             if (optionalDialog.isPresent()) {
                 Dialog dialog = optionalDialog.get();
-                redirToExistDialog(req, resp, dialog, userDto, userService.getUserById(interlocId), msgsService.getByDialogId(dialog.getId()));
-            }else {
+                redirectToExistDialog(req, resp, dialog, userDto, userService.getUserById(pairId), msgsService.getByDialogId(dialog.getId()));
+            }else if (userService.isInMatch(pairId, userDto.getId())) {
                 Dialog newDialog = Dialog.builder()
                         .user1(userDto.getId())
-                        .user2(interlocId)
+                        .user2(pairId)
                         .lastMsg(new Timestamp(System.currentTimeMillis()))
                         .build();
                 newDialog = dialogService.createDialog(newDialog);
                 req.setAttribute("dialog", newDialog);
                 req.setAttribute("user", userDto);
-                req.setAttribute("interloc", userService.getUserById(interlocId));
+                req.setAttribute("interloc", userService.getUserById(pairId));
                 resp.sendRedirect("/im?sel=" + newDialog.getId());
             }
         } else {
@@ -71,7 +71,7 @@ public class MsgServlet extends HttpServlet {
         }
     }
 
-    private void redirToExistDialog(HttpServletRequest req, HttpServletResponse resp, Dialog dialog, UserDto userDto, User interloc, List<MsgDto> messages) throws ServletException, IOException {
+    private void redirectToExistDialog(HttpServletRequest req, HttpServletResponse resp, Dialog dialog, UserDto userDto, User interloc, List<MsgDto> messages) throws ServletException, IOException {
         req.setAttribute("dialog", dialog);
         req.setAttribute("user", userDto);
         req.setAttribute("interloc", interloc);

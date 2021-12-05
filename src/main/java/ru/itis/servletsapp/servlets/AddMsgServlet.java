@@ -2,11 +2,9 @@ package ru.itis.servletsapp.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.itis.servletsapp.dto.MsgDto;
-import ru.itis.servletsapp.dto.PostDto;
 import ru.itis.servletsapp.dto.UserDto;
 import ru.itis.servletsapp.services.DialogService;
 import ru.itis.servletsapp.services.MsgsService;
-import ru.itis.servletsapp.services.PostsService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

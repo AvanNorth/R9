@@ -1,7 +1,6 @@
 package ru.itis.servletsapp.services;
 
 import ru.itis.servletsapp.dto.MsgDto;
-import ru.itis.servletsapp.dto.PostDto;
 
 import java.util.List;
 

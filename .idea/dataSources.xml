@@ -7,11 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/breakthrough</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="vk@localhost" uuid="d8f565cb-e092-44bc-99e8-ed0183a64b89">
+    <data-source source="LOCAL" name="vika@localhost" uuid="1dd37a6a-5a49-4b59-b5df-be8e15f66605">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/vk</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/vika</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

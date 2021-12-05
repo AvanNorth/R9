@@ -9,9 +9,16 @@ import java.util.Optional;
 public interface UsersRepository extends CrudRepository<User, Long> {
     Optional<User> findByEmail(String email);
     Optional<User> findByToken(String token);
-    List<User> findFriends(Long id);
-    void setFriend(Long id, Long friendId);
-    void deleteFriend(Long id, Long friendId);
+
+    List<Long> findMatchesId(Long id);
+
+    Optional<User> getPair(Long id);
+
+    User findAll(Long id);
+    void setInteractedWith(Long userId, Long interactedWith);
+
+    void setMatch(Long userId, Long matchId);
+
     void updateAvatarForUser(Long userId, Long fileId);
     Optional<String> getTokenByUserId(Long userId);
     void createTokenForUser(Long userId, String token);

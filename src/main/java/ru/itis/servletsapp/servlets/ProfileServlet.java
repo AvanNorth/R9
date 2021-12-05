@@ -1,7 +1,6 @@
 package ru.itis.servletsapp.servlets;
 
 import ru.itis.servletsapp.dto.UserDto;
-import ru.itis.servletsapp.services.PostsService;
 import ru.itis.servletsapp.services.UserService;
 
 import javax.servlet.ServletConfig;
@@ -14,12 +13,10 @@ import java.io.IOException;
 
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
-    private PostsService postsService;
     private UserService userService;
 
     @Override
     public void init(ServletConfig config) {
-        postsService = (PostsService) config.getServletContext().getAttribute("postsService");
         userService = (UserService) config.getServletContext().getAttribute("userService");
     }
 
@@ -30,10 +27,8 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("sessionUser", userDto);
         if (userId != null){
             request.setAttribute("user", userService.getUserById(Long.parseLong(userId)));
-            request.setAttribute("posts", postsService.getByAuthorId(Long.parseLong(userId)));
         }else {
             request.setAttribute("user", userDto);
-            request.setAttribute("posts", postsService.getByAuthorId(userDto.getId()));
         }
 
         request.getRequestDispatcher("/profile.ftl").forward(request, response);
